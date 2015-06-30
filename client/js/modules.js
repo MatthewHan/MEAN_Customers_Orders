@@ -12,5 +12,5 @@ app.config(function($routeProvider){
 		controllerAs: 'ordersCtrl',
 		templateUrl: '/partials/orders.partial.html'
 	})
-	.otherwise('/')
+	.otherwise('/');
 })

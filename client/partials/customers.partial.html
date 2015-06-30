@@ -15,7 +15,7 @@
   </div>
   <div class="row margin-0">
       <div class="col-md-5"><input type="text" ng-model="customersCtrl.searchWord.name" placeholder="Search By Name"></div>
-      <div class="col-md-5"><input type="text" ng-model="customersCtrl.searchWord.team" placeholder="Search By Date"></div>
+      <div class="col-md-5"><input type="text" ng-model="customersCtrl.searchWord.created_at" placeholder="Search By Date"></div>
       <div class="col-md-2"></div>
   </div>
   <div class="row margin-0" ng-repeat='customer in customersCtrl.customers | filter:customersCtrl.searchWord' >
