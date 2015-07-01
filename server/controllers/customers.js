@@ -2,13 +2,36 @@ var Customer = mongoose.model('Customer');
 module.exports = (function(){
 	return {
 		index: function(req, res){
-			console.log("Server/Ctrl/Customers - Index")
+			//console.log("Server/Ctrl/Customers - Index");
+			Customer.find({}, function (err, customers){
+				if(err){
+					res.json([{name: "Updating, come back later"}]);
+				} else {
+					res.json(customers);
+				}
+			})
 		},
 		create: function(req, res){
-			console.log("Server/Ctrl/Customers - Create")
+			//console.log("Server/Ctrl/Customers - Create");
+			var customer = new Customer;
+			customer.name = req.body.name;
+			customer.save(function(err){
+				if(err){
+					res.json({status:false});
+				} else {
+					res.json({status:true});
+				}
+			})
 		},
-		delete: function(req, res){
-			console.log("Server/Ctrl/Customers - Delete")
+		destroy: function(req, res){
+			//console.log("Server/Ctrl/Customers - Delete");
+			Customer.remove({_id:req.params.id}, function(err){
+				if(err){
+					res.json({status:false});
+				} else {
+					res.json({status:true});
+				}
+			})
 		}
 	}
 })();

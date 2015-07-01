@@ -6,3 +6,14 @@ app.filter('range', function(){
       return input;
    }
 });
+
+app.service('customersList', function(CustomersFactory){
+	var customers = [];
+	return {
+		getCustomers: function(){
+			CustomersFactory.getCustomers(function(customers){
+				that.customers = customers;
+			});
+		}
+	};
+})

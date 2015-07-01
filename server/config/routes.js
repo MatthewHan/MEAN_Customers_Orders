@@ -3,13 +3,13 @@ module.exports = function(app) {
   	var orders = require('../controllers/orders.js');
 // Customer
     // Index
-	app.get('/customers', function(request, response) { customers.index(req, res) })
+	app.get('/customers', function (req, res) { customers.index(req, res) })
 	// Create
-	.post('/customers', function(request, response) { customers.create(req, res) })	
+	.post('/customers', function (req, res) { customers.create(req, res) })	
 	// Delete
-	.delete('/customers/:id', function(request, response) { customers.delete(req, res) })
+	.delete('/customers/:id', function (req, res) { customers.destroy(req, res) })
 	    // Index
-	.get('/orders', function(request, response) { orders.index(req, res) })
+	.get('/orders', function (req, res) { orders.index(req, res) })
 	// Create
-	.post('/orders', function(request, response) { orders.create(req, res) })	
+	.post('/orders', function (req, res) { orders.create(req, res) })	
 }
