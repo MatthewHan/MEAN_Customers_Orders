@@ -1,8 +1,9 @@
-app.controller('CustomersController', function(CustomersFactory, customersList){
+app.controller('CustomersController', [ 'CustomersFactory', 'CustomersListFactory', function(CustomersFactory, CustomersListFactory){
 	//console.log('CustomersController Loaded');
 	that = this;
-	that.customers = customersList.getCustomers();
-	that.searchWord = {};
+	this.customers = CustomersListFactory.getCustomers();
+	this.searchWord = {};
+	this.errors = [];
 	// var getCustomers = function(){
 	// 	//console.log("CustomersController getCustomers");
 	// 	CustomersFactory.getCustomers(function(customers){
@@ -11,11 +12,12 @@ app.controller('CustomersController', function(CustomersFactory, customersList){
 	// }
 
 	this.addCustomer = function(newCustomer){
+		this.errors=[];
 		//console.log("newUser param ", newCustomer);
 		if(newCustomer){
-			CustomersFactory.addCustomer(newCustomer, function(){
-				that.customers = customersList.getCustomers();
-				
+			CustomersFactory.addCustomer(newCustomer, function(res){
+				if(res.status == false) {that.errors.push(res.error)}
+				this.customers = CustomersListFactory.getCustomers();
 			})
 			that.newCustomer = {};
 		}
@@ -23,17 +25,17 @@ app.controller('CustomersController', function(CustomersFactory, customersList){
 	this.removeCustomer = function(customer){
 		//console.log("CustomersController removeCustomer ", customer);
 		CustomersFactory.removeCustomer(customer, function(){
-			that.customers = customersList.getCustomers();
+			this.customers = CustomersListFactory.getCustomers();
 		});
 	}
-})
+}])
 
-app.controller('OrdersController', function(OrdersFactory, customersList){
+app.controller('OrdersController', ['OrdersFactory','CustomersListFactory', function(OrdersFactory, CustomersListFactory){
 	//console.log('OrdersController Loaded');
 	that = this;
-	that.orders = [];
-	that.customers = customersList.getCustomers();
-	that.searchWord = {};
+	this.orders = [];
+	this.customers = CustomersListFactory.getCustomers();
+	this.searchWord = {};
 	var getOrders = function(){
 		console.log("OrdersController getOrders");
 		OrdersFactory.getOrders(function(orders){
@@ -52,4 +54,4 @@ app.controller('OrdersController', function(OrdersFactory, customersList){
 	}
 	getOrders();
 
-})
+}])

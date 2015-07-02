@@ -17,7 +17,8 @@ module.exports = (function(){
 			customer.name = req.body.name;
 			customer.save(function(err){
 				if(err){
-					res.json({status:false});
+					//console.log(err);
+					res.json({status:false, error:'Name is Required & must be Unique'});
 				} else {
 					res.json({status:true});
 				}

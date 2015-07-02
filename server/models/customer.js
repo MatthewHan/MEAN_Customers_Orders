@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 var CustomerSchema = new mongoose.Schema({
-  name: { type: String, trim: true },
+  name: { type: String, trim: true, unique:true },
   created_at: { type: Date, default: Date.now }
 });
 
